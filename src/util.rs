@@ -67,6 +67,7 @@ pub(crate) enum HttpStatusCode {
     NoContent,
     NotModified,
     NotFound,
+    MethodNotAllowed,
     InternalServerError,
 }
 
@@ -81,6 +82,7 @@ impl Display for HttpStatusCode {
            HttpStatusCode::NoContent => 204,
            HttpStatusCode::NotModified => 304,
            HttpStatusCode::NotFound => 404,
+           HttpStatusCode::MethodNotAllowed => 405,
            HttpStatusCode::InternalServerError => 500,
            
        };

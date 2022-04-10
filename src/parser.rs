@@ -205,7 +205,6 @@ impl Parser {
                 if ch != LF {
                     return Err(ParserError::UnexpectedChar("LF after CR"));
                 }
-                println!("{} {} HTTP/{}.{}", self.method_parsed, self.request_target, self.http_version_major, self.http_version_minor);
                 return Ok(true);
             }
         }
@@ -295,7 +294,6 @@ impl Parser {
                 }
                 State::Header => {
                     if self.parse_headers(ch)? {
-                        println!("{:?}", self.header_map);
                         self.state = State::Done;
                         return Ok(true);
                     }

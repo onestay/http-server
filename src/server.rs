@@ -23,7 +23,7 @@ impl Server {
 
         loop {
             let (stream, addr) = self.socket.as_ref().expect("socket is none").accept()?;
-            println!("New request from {}", addr);
+            
             thread::spawn(move || {
                 HttpConnection::init(stream);
 

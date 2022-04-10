@@ -19,17 +19,14 @@ impl HttpConnection {
             match self.tcp_stream.read(&mut self.buffer) {
                 Ok(bytes_read) => {
                     if bytes_read == 0 {
-                        println!("Socket closed!");
                         break;
                     }
                 match self.parser.feed(&self.buffer[..bytes_read]){
                     Ok(res) => {
                         if res {
-                            println!("parsed");
                             let request = self.parser.finish().unwrap();
-                            let response: HttpResponse<&str> = response::HttpResponse::new(&self.tcp_stream, HttpStatusCode::OK);
-                            //response.body(format!("Hello. path: {}, method: {}\n", dick.target(), request.method()));
-                            response.send_file(Path::new(request.target()));
+                            let response: HttpResponse = response::HttpResponse::new(&request, &mut self.tcp_stream);
+                            response.send();
                             self.parser = Parser::new();
                         }
                     },
@@ -44,7 +41,6 @@ impl HttpConnection {
                 Err(err) => println!("Error reading from socket {}", err)
             }
         }
-
     }
     pub(crate) fn init(tcp_stream: TcpStream) {
         let conn = HttpConnection {

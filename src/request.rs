@@ -1,8 +1,8 @@
 use std::collections::HashMap;
-use std::hash::Hash;
 use std::net::SocketAddr;
 use crate::util::HttpMethod;
 
+#[derive(Debug)]
 pub(crate) struct HttpRequest {
     src_addr: Option<SocketAddr>,
     target: String,

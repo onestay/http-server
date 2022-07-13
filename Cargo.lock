@@ -63,7 +63,6 @@ dependencies = [
  "bytes",
  "env_logger",
  "lazy_static",
- "libc",
  "log",
  "thiserror",
  "time",

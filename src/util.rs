@@ -55,12 +55,13 @@ impl Display for HttpMethod {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Default)]
 #[allow(dead_code)]
 #[non_exhaustive]
 pub(crate) enum HttpStatusCode {
     Continue,
     SwitchingProtocols,
+    #[default]
     OK,
     Accepted,
     NonAuthoritativeInformation,

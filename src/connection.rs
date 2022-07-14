@@ -1,7 +1,6 @@
 use crate::response;
 use std::io::Read;
 use std::net::{Shutdown, TcpStream};
-use std::path::Path;
 use crate::response::HttpResponse;
 use crate::util::HttpStatusCode;
 use super::parser::Parser;
@@ -25,14 +24,13 @@ impl HttpConnection {
                     Ok(res) => {
                         if res {
                             let request = self.parser.finish().unwrap();
-                            let response: HttpResponse = response::HttpResponse::new(&request, &mut self.tcp_stream);
+                            let response = response::HttpResponse::new();
                             response.send();
                             self.parser = Parser::new();
                         }
                     },
                     Err(e) => {
                         println!("{:?}", e);
-                        response::send_400_response(&mut self.tcp_stream);
                         self.tcp_stream.shutdown(Shutdown::Both).unwrap();
                         break;
                     }

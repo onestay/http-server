@@ -24,7 +24,7 @@ impl HttpConnection {
                     Ok(res) => {
                         if res {
                             let request = self.parser.finish().unwrap();
-                            let response = response::HttpResponse::new();
+                            let response = response::HttpResponse::ok();
                             response.send();
                             self.parser = Parser::new();
                         }
